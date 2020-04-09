@@ -7,10 +7,12 @@ class Piece
     @color = color
     @board = board
     @pos = pos
+
+    board.add_piece(pos, self)
   end
 
   def empty?
-    color != :none ? true : false
+    color == :none ? true : false
   end
 
   

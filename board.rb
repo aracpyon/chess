@@ -1,10 +1,13 @@
 require_relative "pieces"
+require 'byebug'
 class Board
   attr_reader :grid, :sentinel
 
   def initialize
     @sentinel = Nullpiece.instance
     @grid = Array.new(8){Array.new(8, @sentinel)}
+
+    set_up_board
   end
 
   def [](pos)
@@ -17,8 +20,16 @@ class Board
     grid[x][y] = val
   end
 
-  def valid_pos?(pos)
+  def empty?(pos)
     self[pos].empty?
+  end
+
+  def valid_pos?(pos)
+    pos.all?{|i| i.between?(0, 7)} 
+  end
+
+  def add_piece(pos, piece)
+    self[pos] = piece
   end
 
   def move_piece(color, start_pos, end_pos)
@@ -41,12 +52,18 @@ class Board
   def set_up_board
     (0..7).each do |i|
       
-      grid[0][i] = Piece.new
-      grid[1][i] = Piece.new
-      grid[6][i] = Piece.new
-      grid[7][i] = Piece.new 
+      grid[0][i] = Piece.new(:white, self, [0,i])
+      grid[1][i] = Piece.new(:white, self, [1,i])
+      grid[6][i] = Piece.new(:black, self, [6,i])
+      grid[7][i] = Piece.new(:black, self, [7,i]) 
     end
     
   end
   
+end
+
+if $PROGRAM_NAME == __FILE__
+  b = Board.new
+  q = Queen.new(:white, b, [3,3])
+  p q.moves
 end

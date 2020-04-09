@@ -1,3 +1,4 @@
+require "byebug"
 module Slideable
   HORIZONTAL_VERTICAL = [
     [1,0],
@@ -9,7 +10,7 @@ module Slideable
   DIAGNAL = [
     [1, 1],
     [-1, 1],
-    [1, -1].
+    [1, -1],
     [-1, -1]
   ]
 
@@ -24,16 +25,24 @@ module Slideable
 
   def grow_moves(dx, dy)
     moves = []
+
     new_pos = pos.dup
-    until board.valid_pos?(new_pos)
-      pos_x, pos_y = new_pos
-      new_pos = [pos_x + dx, pos_y + dy]
-      moves << new_pos
+    pos_x, pos_y = pos
+    new_pos = [pos_x + dx, pos_y + dy]
+
+    while board.valid_pos?(new_pos)
+      if board.empty?(new_pos)
+        moves << new_pos
+      
+        pos_x, pos_y = new_pos
+        new_pos = [pos_x + dx, pos_y + dy]
+      else
+        moves << new_pos if board[new_pos].color != color
+        break
+      end
     end
-
-    piece = board[new_pos]
-    moves << piece.pos if piece.color != color
-
+    
+    # debugger
     moves
   end
 
