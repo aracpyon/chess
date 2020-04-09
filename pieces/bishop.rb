@@ -1,18 +1,14 @@
 require_relative "piece"
 require_relative "slideable"
 
-class Queen < Piece
+class Bishop < Piece
   include Slideable
 
   def symbol
-    if color == :white
-      '♕'
-    else
-      '♛'
-    end
+    color == :white ? ♗ : ♝
   end
 
   def move_dir
-    HORIZONTAL_VERTICAL + DIAGNAL
+    DIAGNAL
   end
 end

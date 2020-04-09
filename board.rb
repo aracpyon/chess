@@ -17,6 +17,10 @@ class Board
     grid[x][y] = val
   end
 
+  def valid_pos?(pos)
+    self[pos].empty?
+  end
+
   def move_piece(color, start_pos, end_pos)
     raise "there is nothing here" if self[start_pos] == @sentinel
 
@@ -31,7 +35,7 @@ class Board
     self[end_pos] = start_piece
     self[start_pos] = @sentinel
     
-    # end_piece.pos = end_pos
+    end_piece.pos = end_pos
   end
 
   def set_up_board
