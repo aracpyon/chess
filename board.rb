@@ -66,4 +66,7 @@ if $PROGRAM_NAME == __FILE__
   b = Board.new
   q = Queen.new(:white, b, [3,3])
   p q.moves
+  knight = Knight.new(:black, b, [2,5])
+  p knight.moves
+  
 end
