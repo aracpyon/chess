@@ -49,6 +49,15 @@ class Board
     end_piece.pos = end_pos
   end
 
+  def fill_pawns(color)
+    color == :white ? 7 : 1
+
+  end
+
+  def fill_back_row(color)
+    color == :white ? 6 : 0
+  end
+
   def set_up_board
     (0..7).each do |i|
       
