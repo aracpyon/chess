@@ -15,5 +15,8 @@ class Piece
     color == :none ? true : false
   end
 
+  def to_s
+    " #{symbol} "
+  end
   
 end

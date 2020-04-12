@@ -6,7 +6,6 @@ class Board
   def initialize
     @sentinel = Nullpiece.instance
     @grid = Array.new(8){Array.new(8, @sentinel)}
-
     set_up_board
   end
 
@@ -50,32 +49,36 @@ class Board
   end
 
   def fill_pawns(color)
-    color == :white ? 7 : 1
-
+    i = color == :white ? 7 : 1
+    8.times do |j|
+      pos = [i, j]
+      self[pos] = Pawn.new(color, self, pos)
+    end
   end
 
   def fill_back_row(color)
-    color == :white ? 6 : 0
+    i = color == :white ? 6 : 0
+    pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+    pieces.each.with_index do |piece, j|
+      pos = [i, j]
+      self[pos] = piece.new(color, self, pos)
+    end
   end
 
   def set_up_board
-    (0..7).each do |i|
-      
-      grid[0][i] = Piece.new(:white, self, [0,i])
-      grid[1][i] = Piece.new(:white, self, [1,i])
-      grid[6][i] = Piece.new(:black, self, [6,i])
-      grid[7][i] = Piece.new(:black, self, [7,i]) 
+    %i(white black).each do |color|
+      fill_pawns(color)
+      fill_back_row(color)
     end
-    
   end
   
 end
 
 if $PROGRAM_NAME == __FILE__
   b = Board.new
-  q = Queen.new(:white, b, [3,3])
-  p q.moves
-  knight = Knight.new(:black, b, [2,5])
-  p knight.moves
-  
+  # q = Queen.new(:white, b, [3,3])
+  # p q.moves
+  # knight = Knight.new(:black, b, [2,5])
+  # p knight.moves
+  p b
 end

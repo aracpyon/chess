@@ -1,9 +1,11 @@
 require_relative "piece"
 require_relative "stepable"
+require 'colorize'
+
 class King < Piece
   include Stepable
   def symbol
-    color == :white ? '♔' : '♚'
+   '♚'.colorize(color)
   end
 
   def move_diffs

@@ -1,15 +1,12 @@
 require_relative "piece"
 require_relative "slideable"
+require 'colorize'
 
 class Queen < Piece
   include Slideable
 
   def symbol
-    if color == :white
-      '♕'
-    else
-      '♛'
-    end
+    '♛'.colorize(color)
   end
 
   def move_dir

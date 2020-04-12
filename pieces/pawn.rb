@@ -1,8 +1,9 @@
 require_relative "piece"
+require 'colorize'
 
 class Pawn < Piece
   def symbol
-    color == :white ? '♙' : '♟'
+    '♟'.colorize(color)
   end
 
   def at_start_row?
